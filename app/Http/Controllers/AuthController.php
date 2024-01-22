@@ -43,8 +43,6 @@ class AuthController extends Controller
 
         $response = Http::post($this->apiPath . '/auth/register', ['email'=>$formFields['email'], 'password'=>$formFields['password']]);
         if ($response->successful()) {
-            $responseData = $response->json();
-            
             return redirect('/login')->with('message', 'Account created!');
         } else {
             return redirect('/register')->with('message',  $response->json()['message']);

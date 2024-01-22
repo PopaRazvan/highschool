@@ -43,7 +43,7 @@ $classroom = $student['classroom']
   @foreach ($grades as $grade)
   @if ($grade['subject']['name'] == $subject['name'])
   <h1>
-    {{$grade['value']}} - {{$grade['notationDate']}}
+    {{$grade['value']}}
   </h1>
   @endif
   @endforeach

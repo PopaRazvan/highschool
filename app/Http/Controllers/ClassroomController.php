@@ -45,6 +45,8 @@ class ClassroomController extends Controller
             'year' => 'required',
             'group' => 'required',
         ]);
+        
+        $formFields['year'] = intval($formFields['year']);
 
         $idProfessor = $request->input('idProfessor');
        
