@@ -20,7 +20,6 @@ class SubjectController extends Controller
         $responseSubjects = Http::withToken(session('access_token'))->get($this->apiPath . '/subjects');
 
         if ($responseSubjects->successful()) {
-
             $responseSubjectsData = $responseSubjects->json();
             return view('subject.index', ['subjects' => $responseSubjectsData]);
         } else {
@@ -45,15 +44,17 @@ class SubjectController extends Controller
         ]);
 
         $response = Http::withToken(session('access_token'))->post($this->apiPath . '/subjects', $formFields);
-
-        return redirect('/subjects')->with('message', 'Subject created successfully!');
+        if ($response->successful())
+            return redirect('/subjects')->with('message', 'Subject created successfully!');
+        else return redirect('/subjects')->with('message', $response->json()['message']);
     }
 
     public function destroy(Request $request, string $idSubject)
     {
         $response = Http::withToken(session('access_token'))->delete($this->apiPath . '/subjects/' . $idSubject);
 
-
-        return redirect('/subjects/')->with('message', 'Subject deleted successfully!');
+        if ($response->successful())
+            return redirect('/subjects/')->with('message', 'Subject deleted successfully!');
+        else return redirect('/subjects')->with('message', $response->json()['message']);
     }
 }

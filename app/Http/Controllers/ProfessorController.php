@@ -68,8 +68,10 @@ class ProfessorController extends Controller
     public function destroy(string $idProfessor)
     {
         $response = Http::withToken(session('access_token'))->delete($this->apiPath . '/professors/' . $idProfessor);
-
-        return redirect('/professors')->with('message', 'Professor deleted successfully!');
+        
+        if ($response->successful())
+            return redirect('/professors')->with('message', 'Professor deleted successfully!');
+        else return redirect('/professors')->with('message', $response->json()['message']);
     }
 
     public function changeClassroom(Request $request, string $idProfessor)
@@ -77,7 +79,8 @@ class ProfessorController extends Controller
         $idClassroom = $request->input('idClassroom');
 
         $response = Http::withToken(session('access_token'))->patch($this->apiPath . '/professors/' . $idProfessor, ['idClassroom' => $idClassroom]);
-
-        return redirect('/professors/' . $idProfessor)->with('message', 'Professor moved successfully!');
+        if ($response->successful())
+            return redirect('/professors/' . $idProfessor)->with('message', 'Professor moved successfully!');
+        else return redirect('/professors')->with('message', $response->json()['message']);
     }
 }
