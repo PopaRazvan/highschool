@@ -41,7 +41,7 @@ $classroom = $student['classroom']
   @foreach ($subjects as $subject)
   <x-item> {{$subject['name']}}</x-item>
   @foreach ($grades as $grade)
-  @if ($grade['subject']['name'] == $subject['name'])
+  @if ($grade['subject'] && $grade['subject']['name'] == $subject['name'])
   <h1>
     {{$grade['value']}}
   </h1>
