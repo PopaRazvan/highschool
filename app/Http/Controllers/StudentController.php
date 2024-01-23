@@ -53,6 +53,8 @@ class StudentController extends Controller
             'birthDate' => 'required',
         ]);
 
+        $formFields['scholarship'] = intval($formFields['scholarship']);
+
         $idClassroom = $request->input('idClassroom');
 
         $formFields['idClassroom'] = $idClassroom;
@@ -70,6 +72,8 @@ class StudentController extends Controller
         $formFields = $request->validate([
             'value' => 'required',
         ]);
+
+        $formFields['value'] = intval($formFields['value']);
 
         $idStudent = $request->input('idStudent');
         $idSubject = $request->input('idSubject');
